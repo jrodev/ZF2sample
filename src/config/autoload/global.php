@@ -13,4 +13,5 @@
 
 return array(
     // ...
+    'cf-item'=>'global',
 );

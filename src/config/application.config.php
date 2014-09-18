@@ -2,7 +2,10 @@
 return array(
     // This should be an array of module namespaces used in the application.
     'modules' => array(
-        'Application',
+        //'Cron',
+        //'Admin',
+        //'Usuario',
+        'Portal',
     ),
 
     // These are various options for the listeners attached to the ModuleManager
@@ -12,7 +15,8 @@ return array(
         // namespace, the value of that key the specific path to that module's
         // Module class.
         'module_paths' => array(
-            './module',
+            './modules',
+            './website',
             './vendor',
         ),
 
