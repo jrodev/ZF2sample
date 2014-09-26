@@ -14,4 +14,13 @@
 return array(
     // ...
     'cf-item'=>'global',
+    'js' => array(
+        'base_url'=>''
+    ),
+    'view_manager' => array(
+        'base_path' => 'http://localhost:8089',
+    ),
+    'strategies' => array(
+        'ViewJsonStrategy',
+    ),
 );
