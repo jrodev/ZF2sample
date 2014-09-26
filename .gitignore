@@ -9,8 +9,8 @@ nbproject
 composer.lock
 vendor/bin
 
-/src/public/.bowerrc
-/src/public/bower.json
+#/src/public/.bowerrc
+#/src/public/bower.json
 /src/public/vendor/
 /src/public/node_modules/
 /src/public/bower_components/
