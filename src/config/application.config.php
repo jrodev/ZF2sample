@@ -2,6 +2,12 @@
 return array(
     // This should be an array of module namespaces used in the application.
     'modules' => array(
+        // Debug de BD (https://github.com/bjyoungblood/BjyProfiler)
+        'BjyProfiler',
+        // UI developerTools (https://github.com/zendframework/ZendDeveloperTools/)
+        'ZendDeveloperTools', 
+        // tracking dependencies between services (https://github.com/Ocramius/OcraServiceManager)
+        'OcraServiceManager',
         //'Cron',
         //'Admin',
         //'Usuario',
