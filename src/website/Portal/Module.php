@@ -23,7 +23,7 @@ class Module
         var_dump($cnf['cf-item']); 
         
         $moduleRouteListener = new ModuleRouteListener();
-        $moduleRouteListener->attach($eventManager);
+        $moduleRouteListener->attach($eventManager); 
     }
 
     public function getConfig()
