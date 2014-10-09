@@ -13,4 +13,7 @@
 
 return array(
     'cf-item'=>'local',
+    'view_manager' => array(
+        'base_path' => 'http://local.zf2sample.pe',
+    ),
 );
