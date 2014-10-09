@@ -8,6 +8,7 @@ return array(
         'ZendDeveloperTools', 
         // tracking dependencies between services (https://github.com/Ocramius/OcraServiceManager)
         'OcraServiceManager',
+        'JavaScript', // in ./depends
         //'Cron',
         //'Admin',
         //'Usuario',
@@ -21,6 +22,7 @@ return array(
         // namespace, the value of that key the specific path to that module's
         // Module class.
         'module_paths' => array(
+            './depends',
             './modules',
             './website',
             './vendor',
