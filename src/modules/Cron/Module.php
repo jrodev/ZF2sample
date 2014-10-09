@@ -20,8 +20,7 @@ class Module
         
         $sm = $e->getApplication()->getServiceManager();
         $cnf = $sm->get('config');
-        var_dump($cnf['cf-item']); 
-        
+
         $moduleRouteListener = new ModuleRouteListener();
         $moduleRouteListener->attach($eventManager);
     }
