@@ -19,7 +19,7 @@ class Module
         $eventManager = $e->getApplication()->getEventManager();
         
         $sm = $e->getApplication()->getServiceManager();
-        $cnf = $sm->get('config');        var_dump("!!");
+        $cnf = $sm->get('config');
         
         $moduleRouteListener = new ModuleRouteListener();
         $moduleRouteListener->attach($eventManager);
