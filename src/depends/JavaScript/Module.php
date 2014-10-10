@@ -19,15 +19,13 @@ class Module implements AutoloaderProviderInterface, ConfigProviderInterface
             
             $rm = $event->getRouteMatch();
             if (!($rm instanceof RouteMatch)) {
-                $rm = new RouteMatch(
-                    array(
-                        'module'        => 'Application',
-                        '__NAMESPACE__' => 'Application\Controller',
-                        '__CONTROLLER__'=> 'index',
-                        'controller'    => 'Application\Controller\Index',
-                        'action'        => 'index',
-                    )
-                );
+                $rm = new RouteMatch(array(
+                    'module'        => 'Application',
+                    '__NAMESPACE__' => 'Application\Controller',
+                    '__CONTROLLER__'=> 'index',
+                    'controller'    => 'Application\Controller\Index',
+                    'action'        => 'index',
+                ));
             }
 
             $params = $rm->getParams();
@@ -56,7 +54,7 @@ class Module implements AutoloaderProviderInterface, ConfigProviderInterface
             ];
 
             $view->inlineScript()->appendScript(
-                "var Global=".json_encode($paramsConfig, JSON_FORCE_OBJECT)
+                "window.Global=".json_encode($paramsConfig, JSON_FORCE_OBJECT)
             );
         };
 

@@ -14,5 +14,9 @@
         "zendframework/zend-developer-tools": "dev-master",
         "ocramius/ocra-service-manager": "2.2.*@dev"
         
+    },
+    "require-dev": {},
+    "autoload": {
+        "files": ["libs/Firelogger/fl.core.php"]
     }
 }
