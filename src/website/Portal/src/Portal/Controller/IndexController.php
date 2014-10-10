@@ -19,7 +19,7 @@ class IndexController extends AbstractActionController
         flog('indexAction');
         $storeScript = $this->getServiceLocator()->get('storeScript');
         $storeScript->setStore('fooIndex',['item'=>2,'item2'=>array(1,2)]);
-        
+        $this->layout()->setTemplate("layout/layout");
         return new ViewModel();
     }
 }
