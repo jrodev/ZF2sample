@@ -15,7 +15,11 @@ use Zend\View\Model\ViewModel;
 class IndexController extends AbstractActionController
 {
     public function indexAction()
-    {
+    {   
+        flog('indexAction');
+        $storeScript = $this->getServiceLocator()->get('storeScript');
+        $storeScript->setStore('fooIndex',['item'=>2,'item2'=>array(1,2)]);
+        
         return new ViewModel();
     }
 }

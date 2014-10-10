@@ -3,67 +3,57 @@
 namespace JavaScript;
 
 use Zend\ModuleManager\Feature\AutoloaderProviderInterface,
+    Zend\ModuleManager\Feature\ConfigProviderInterface,        
+    Zend\ServiceManager\ServiceManager,
     //Application\Model\Data\Cookie,
-    Zend\ModuleManager\Feature\ConfigProviderInterface,
-    Zend\Mvc\MvcEvent,
-    Zend\Mvc\Router\RouteMatch;
+    Zend\Mvc\Router\RouteMatch,
+    Zend\Mvc\MvcEvent;
+
 class Module implements AutoloaderProviderInterface, ConfigProviderInterface
 {
 
     public function onBootstrap(MvcEvent $e)
     {
-        $callback = function (MvcEvent $event){
-            $view = $event->getApplication()->getServiceManager()->get('ViewRenderer');
-            $config = $event->getApplication()->getConfig();
-            $controller = $event->getTarget();
-            
-            $rm = $event->getRouteMatch();
-            if (!($rm instanceof RouteMatch)) {
-                $rm = new RouteMatch(array(
-                    'module'        => 'Application',
-                    '__NAMESPACE__' => 'Application\Controller',
-                    '__CONTROLLER__'=> 'index',
-                    'controller'    => 'Application\Controller\Index',
-                    'action'        => 'index',
-                ));
-            }
+        $sm  = $e->getApplication()->getServiceManager();
+        $gem = $e->getApplication()->getEventManager();
+        
+        // Definiendo ServiceFactory aca, para inyectar MVCEvent
+        $sm->setFactory('JavaScript\Service\StoreScript', function($sm) use ($e) {
+            return new \JavaScript\Service\StoreScript($e);
+        })->setAlias('storeScript','JavaScript\Service\StoreScript');
 
-            $params = $rm->getParams();
-            $modulo     = isset($params['__NAMESPACE__']) ? $params['__NAMESPACE__']:"";
-            $controller = isset($params['__CONTROLLER__']) ? $params['__CONTROLLER__']:"";
-            
-            if (isset($params['controller'])) {
-                $paramsArray = explode("\\", $params['controller']);
-                $modulo = $paramsArray[0];
-                $controller = $paramsArray[2];
-            }
-
-            $action = isset($params['action']) ? $params['action'] : null;
-            $app = $event->getParam('application');
-            $sm = $app->getServiceManager();
-
-            $paramsConfig = [
-                'modulo' => strtolower($modulo),
-                'controller' => strtolower($controller),
-                'action' => strtolower($action),
-                'baseHost' => $view->base_path("/"),
-                'min' => '',
-                'AppCore' => [],
-                'AppSandbox' => [],
-                'AppSchema' => [ 'modules'=>[], 'requires'=>[] ]
-            ];
-
-            $view->inlineScript()->appendScript(
-                "window.Global=".json_encode($paramsConfig, JSON_FORCE_OBJECT)
+        // Definiendo Event Render
+        $gem->attach(MvcEvent::EVENT_RENDER, function(MvcEvent $e){
+            flog('eventRender');
+            $sm = $e->getApplication()->getServiceManager();
+            $view = $sm->get('ViewRenderer');
+            $store = $sm->get('storeScript')->getStore();
+            $params = ['baseHost'=>$view->base_path("/")]+$store;
+            $view->headScript()->appendScript(
+                "window.Global=".json_encode($params, JSON_FORCE_OBJECT)
             );
-        };
-
+        }, 100);
+/*
         $e->getApplication()->getEventManager()->getSharedManager()->attach(
             'Zend\Mvc\Controller\AbstractActionController', MvcEvent::EVENT_DISPATCH, $callback , 100
         );
 
         $e->getApplication()->getEventManager()->getSharedManager()->attach(
             'Zend\Mvc\Application', MvcEvent::EVENT_DISPATCH_ERROR, $callback , 100
+        );*/
+    }
+
+    public function getServiceConfig()
+    {
+        return array(/*
+            'factories' => array(
+                'JavaScript\Service\StoreScript' => function(ServiceManager $sm){
+                    return new \JavaScript\Service\StoreScript();
+                }
+            ),*/
+            /*'aliases' => array(
+                'storeScript' => 'JavaScript\Service\StoreScript',
+            ),*/
         );
     }
 
@@ -80,5 +70,7 @@ class Module implements AutoloaderProviderInterface, ConfigProviderInterface
             )
         );
     }
+    
+
 
 }
