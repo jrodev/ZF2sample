@@ -18,7 +18,13 @@ class IndexController extends AbstractActionController
     {   
         flog('indexAction');
         // https://github.com/zf-fr/zfr-mailchimp-module
-        $mailChimpClient = $serviceManager->get('ZfrMailChimp\Client\MailChimpClient');
+        $mc = $this->getServiceLocator()->get('ZfrMailChimp\Client\MailChimpClient');
+        
+        $activity = $mc->getCampaigns(array(
+            'id' => '35b41b9a9e'
+        ));
+        
+        var_dump($activity);
         
         $storeScript = $this->getServiceLocator()->get('storeScript');
         $storeScript->setStore('fooIndex',['item'=>2,'item2'=>array(1,2)]);

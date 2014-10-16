@@ -14,8 +14,7 @@
         "zendframework/zend-developer-tools": "dev-master",
         "ocramius/ocra-service-manager": "2.2.*@dev",
         "zfr/zfr-mailchimp-module":"2.*"
-        
-        
+
     },
     "require-dev": {},
     "autoload": {

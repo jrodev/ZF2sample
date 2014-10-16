@@ -8,6 +8,8 @@ return array(
         'ZendDeveloperTools', 
         // tracking dependencies between services (https://github.com/Ocramius/OcraServiceManager)
         'OcraServiceManager',
+        // MailChimp
+        'ZfrMailChimpModule',
         'JavaScript', // in ./depends
         //'Cron',
         //'Admin',
