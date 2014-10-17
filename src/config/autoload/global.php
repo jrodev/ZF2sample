@@ -18,7 +18,7 @@ return array(
         'base_url'=>''
     ),
     'view_manager' => array(
-        'base_path' => 'http://localhost:8083',
+        'base_path' => 'http://local.zf2sample.pe',
     ),
     'strategies' => array(
         'ViewJsonStrategy',
